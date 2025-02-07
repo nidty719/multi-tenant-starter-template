@@ -1,61 +1,60 @@
-import { buttonVariants } from "@/components/ui/button";
-import {
-  GitHubLogoIcon,
-  LinkedInLogoIcon,
-  TwitterLogoIcon,
-} from "@radix-ui/react-icons";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { GitHubLogoIcon, LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 
 export function Footer(props: {
+  className?: string;
   builtBy: string;
   builtByLink: string;
-  githubLink: string;
-  twitterLink: string;
-  linkedinLink: string;
+  githubLink?: string;
+  twitterLink?: string;
+  linkedinLink?: string;
 }) {
   return (
-    <footer className="border-t">
-      <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
-        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            Built by{" "}
-            <a
-              href={props.builtByLink}
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-4"
-            >
-              {props.builtBy}
-            </a>
-            . The source code is available on{" "}
+    <footer className={cn("py-6 md:px-8 md:py-0", props.className)}>
+      <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+        <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+          Built by{" "}
+          <a
+            href={props.builtByLink}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
+          >
+            {props.builtBy}
+          </a>
+          . All rights reserved.
+        </p>
+        <div className="flex items-center gap-4">
+          {props.githubLink && (
             <a
               href={props.githubLink}
               target="_blank"
               rel="noreferrer"
-              className="font-medium underline underline-offset-4"
+              className="text-muted-foreground hover:text-foreground"
             >
-              GitHub
+              <GitHubLogoIcon className="h-5 w-5" />
             </a>
-            .
-          </p>
-        </div>
-
-        <div className="flex items-center space-x-1">
-          {(
-            [
-              { href: props.twitterLink, icon: TwitterLogoIcon },
-              { href: props.linkedinLink, icon: LinkedInLogoIcon },
-              { href: props.githubLink, icon: GitHubLogoIcon },
-            ] as const
-          ).map((link, index) => (
-            <Link
-              href={link.href}
-              className={buttonVariants({ variant: "ghost", size: "icon" })}
-              key={index}
+          )}
+          {props.twitterLink && (
+            <a
+              href={props.twitterLink}
+              target="_blank"
+              rel="noreferrer"
+              className="text-muted-foreground hover:text-foreground"
             >
-              <link.icon className="h-6 w-6" />
-            </Link>
-          ))}
+              <TwitterLogoIcon className="h-5 w-5" />
+            </a>
+          )}
+          {props.linkedinLink && (
+            <a
+              href={props.linkedinLink}
+              target="_blank"
+              rel="noreferrer"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <LinkedInLogoIcon className="h-5 w-5" />
+            </a>
+          )}
         </div>
       </div>
     </footer>
